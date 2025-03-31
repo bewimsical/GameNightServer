@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchController {
 
     @GetMapping("/{query}")
-    public List<Game> searchResults(@PathVariable String query){
+    public List<SearchGame> searchResults(@PathVariable String query){
         query = query.replaceAll(" ", "+");
         APIClient client = new APIClient("search", "?search="+query);
         return client.getSearchResults();

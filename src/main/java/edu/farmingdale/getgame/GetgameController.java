@@ -7,13 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/games")
+@RequestMapping(path = "/games", produces = "application/json")
 public class GetgameController {
 
     @GetMapping("/{id}")
-    public String getGame(@PathVariable String id){
+    public Game getGame(@PathVariable String id){
         APIClient client = new APIClient("boardgame",id);
-
-        return client.getField("//name[@primary='true']");
+        //int objectId, String name, int minPlayers, int maxPlayers, int playTime, String imgUrl
+        String gameId = id;
+        String name = client.getField("//name[@primary='true']");
+        String minPlayers = client.getField("//minplayers");
+        String maxPlayers = client.getField("//maxplayers");
+        String playTime = client.getField("//playingtime");
+        String imgUrl = client.getField("//thumbnail");
+        String category = client.getField("//boardgamesubdomain");
+        return new Game(gameId, name, minPlayers, maxPlayers, playTime, imgUrl, category);
     }
 }

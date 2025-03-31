@@ -58,20 +58,20 @@ public class APIClient {
         }
     }
 
-    public List<Game> getSearchResults(){
+    public List<SearchGame> getSearchResults(){
         try {
             // Query for all <name> elements
             XPathExpression expr = xpath.compile("//boardgame");
             NodeList gameNodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
 
             // Convert NodeList to ArrayList<String>
-            List<Game> gameList = new ArrayList<>();
+            List<SearchGame> gameList = new ArrayList<>();
             for (int i = 0; i < gameNodes.getLength(); i++) {
                 Node gameNode = gameNodes.item(i);
                 String objectId = gameNode.getAttributes().getNamedItem("objectid").getNodeValue();
                 String name = getField("./name[@primary='true']", gameNode);
                 String year = getField("./yearpublished", gameNode);
-                gameList.add(new Game(objectId, name,year));
+                gameList.add(new SearchGame(objectId, name,year));
             }
             return gameList;
         } catch (XPathExpressionException e) {
