@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>edu.farmingdale</groupId>
-    <artifactId>getgame</artifactId>
+    <artifactId>GameNightServer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>getgame</name>
     <description>getgame</description>
