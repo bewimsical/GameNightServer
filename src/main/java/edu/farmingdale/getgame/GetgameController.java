@@ -14,7 +14,7 @@ public class GetgameController {
     public Game getGame(@PathVariable String id){
         APIClient client = new APIClient("boardgame",id);
         //int objectId, String name, int minPlayers, int maxPlayers, int playTime, String imgUrl
-        String gameId = id;
+        int gameId = Integer.parseInt(id);
         String name = client.getField("//name[@primary='true']");
         String minPlayers = client.getField("//minplayers");
         String maxPlayers = client.getField("//maxplayers");

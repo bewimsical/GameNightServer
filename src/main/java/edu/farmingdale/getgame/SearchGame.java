@@ -1,6 +1,6 @@
 package edu.farmingdale.getgame;
 
-public record SearchGame(String id, String name, String year) {
+public record SearchGame(int id, String name, String year) {
 
 }
 

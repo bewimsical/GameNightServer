@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping(path ="/search", produces = "application/json")
 public class SearchController {
 
     @GetMapping("/{query}")

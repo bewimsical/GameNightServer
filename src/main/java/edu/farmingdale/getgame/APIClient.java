@@ -27,16 +27,15 @@ public class APIClient {
         //Call API and get response as XML string
         String xmlResponse = restTemplate.getForObject(url, String.class);
 
-
         try {
+            // Create XPath instance
+            XPathFactory xPathFactory = XPathFactory.newInstance();
+            this.xpath = xPathFactory.newXPath();
+
             // Convert XML string to a Document object
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             this.doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
-
-            // Create XPath instance
-            XPathFactory xPathFactory = XPathFactory.newInstance();
-            this.xpath = xPathFactory.newXPath();
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
@@ -47,6 +46,7 @@ public class APIClient {
     }
 
     public String getField(String selector, Object itemNode){
+        if (itemNode == null) return null;
         try {
             XPathExpression expr = xpath.compile(selector);
             Node node = (Node) expr.evaluate(itemNode, XPathConstants.NODE);
@@ -68,7 +68,7 @@ public class APIClient {
             List<SearchGame> gameList = new ArrayList<>();
             for (int i = 0; i < gameNodes.getLength(); i++) {
                 Node gameNode = gameNodes.item(i);
-                String objectId = gameNode.getAttributes().getNamedItem("objectid").getNodeValue();
+                int objectId = Integer.parseInt(gameNode.getAttributes().getNamedItem("objectid").getNodeValue());
                 String name = getField("./name[@primary='true']", gameNode);
                 String year = getField("./yearpublished", gameNode);
                 gameList.add(new SearchGame(objectId, name,year));
