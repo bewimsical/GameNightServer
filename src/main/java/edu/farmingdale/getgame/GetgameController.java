@@ -12,6 +12,8 @@ public class GetgameController {
 
     @GetMapping("/{id}")
     public Game getGame(@PathVariable String id){
+
+        //check database first, then do api call
         APIClient client = new APIClient("boardgame",id);
         //int objectId, String name, int minPlayers, int maxPlayers, int playTime, String imgUrl
         int gameId = Integer.parseInt(id);
