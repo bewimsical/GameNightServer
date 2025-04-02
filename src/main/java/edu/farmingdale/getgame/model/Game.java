@@ -1,4 +1,4 @@
-package edu.farmingdale.getgame;
+package edu.farmingdale.getgame.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,6 @@ public class Game {
 
     @Column(nullable = false)
     private String name;
-
     private String minPlayers;
     private String maxPlayers;
     private String playTime;

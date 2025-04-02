@@ -1,5 +1,6 @@
-package edu.farmingdale.getgame;
+package edu.farmingdale.getgame.service;
 
+import edu.farmingdale.getgame.model.SearchGame;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;

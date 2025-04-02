@@ -1,5 +1,6 @@
-package edu.farmingdale.getgame;
+package edu.farmingdale.getgame.repository;
 
+import edu.farmingdale.getgame.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

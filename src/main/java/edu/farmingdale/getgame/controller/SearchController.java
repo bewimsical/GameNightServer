@@ -1,5 +1,7 @@
-package edu.farmingdale.getgame;
+package edu.farmingdale.getgame.controller;
 
+import edu.farmingdale.getgame.service.APIClient;
+import edu.farmingdale.getgame.model.SearchGame;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
