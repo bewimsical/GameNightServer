@@ -7,7 +7,6 @@ This project is a backend service built with Spring Boot that interacts with an 
 - Connects to an external API to fetch data.
 - Stores and retrieves data using a relational database.
 - Provides RESTful endpoints for client applications.
-- Implements error handling and logging.
 - Uses dependency injection and layered architecture for maintainability.
 
 ## Technologies Used
@@ -20,6 +19,7 @@ This project is a backend service built with Spring Boot that interacts with an 
 - **Spring Boot Starter Test** - For testing support
 - **Hibernate** - ORM framework
 - **Maven** - Build tool
+- **Databse** - Azure
 
 ## Contributors
 - Kathleen Wims [GitHub](https://github.com/bewimsical)  
