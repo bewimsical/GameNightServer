@@ -1,10 +1,14 @@
 HELP.md
 .env.properties
-db/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### docker ###
+docker/
+!docker/.gitkeep
+!docker/db/.gitkeep
 
 ### STS ###
 .apt_generated

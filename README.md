@@ -19,6 +19,18 @@ This project is a backend service built with Spring Boot that interacts with the
 - **Maven** - Build tool
 - **Databse** - Azure
 
+## Local Development
+- **Install Docker**
+    - Download and install [Docker](https://www.docker.com/get-started) if you haven’t already.
+
+- **Run Docker Compose**
+    - Open a terminal and navigate to the project directory.
+    - Run the following command to start the containers:  `docker compose up -d`
+
+- **Set Up Environment Variables**
+    - Copy the example environment file:  `cp .env.example .env.properties`
+    - Edit `.env.properties` as needed to configure your settings.
+
 ## Contributors
 - Kathleen Wims [GitHub](https://github.com/bewimsical)  
 - Darianne Ramos [GitHub](https://github.com/darianne123)  

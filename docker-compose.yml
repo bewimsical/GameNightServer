@@ -1,14 +1,26 @@
-version: '3.3'
+#version: '3.3'
+#services:
+#  mssql:
+#    container_name: gamenight-mssql
+#    image: mcr.microsoft.com/mssql/server:latest
+#    restart: unless-stopped
+#    environment:
+#      ACCEPT_EULA: "Y"
+#    env_file:
+#      - .env.properties
+#    ports:
+#      - 1433:1433
+#    volumes:
+#      - ./db:/var/opt/mssql
+
 services:
-  mssql:
-    container_name: gamenight-mssql
-    image: mcr.microsoft.com/mssql/server:latest
+  database:
+    container_name: gamenight-mysql
+    image: mysql
     restart: unless-stopped
-    environment:
-      ACCEPT_EULA: "Y"
-    env_file:
-      - .env.properties
     ports:
-      - 1433:1433
+     - 3306:3306
+    env_file:
+      - .env.properties # https://hub.docker.com/_/mysql - documentation for env file
     volumes:
-      - ./db:/var/opt/mssql
+      - ./docker/db:/var/lib/mysql
