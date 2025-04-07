@@ -1,6 +1,9 @@
 package edu.farmingdale.getgame.service;
 
 import edu.farmingdale.getgame.model.SearchGame;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +45,51 @@ public class APIClient {
             e.printStackTrace();
         }
     }
+//public APIClient(String endpoint, String query) {
+//    RestTemplate restTemplate = new RestTemplate();
+//    String url = "https://boardgamegeek.com/xmlapi/" + endpoint + "/" + query;
+//
+//    String xmlResponse = null;
+//    int retries = 0;
+//    final int MAX_RETRIES = 5;
+//    final int RETRY_DELAY_MS = 1000;
+//
+//    while (retries < MAX_RETRIES) {
+//        try {
+//            xmlResponse = restTemplate.getForObject(url, String.class);
+//
+//            if (xmlResponse != null && !xmlResponse.contains("Your request has been accepted and will be processed") && !xmlResponse.isBlank()) {
+//                break; // valid response
+//            }
+//
+//            Thread.sleep(RETRY_DELAY_MS);
+//            retries++;
+//        } catch (RestClientException | InterruptedException e) {
+//            e.printStackTrace();
+//            retries++;
+//            try {
+//                Thread.sleep(RETRY_DELAY_MS);
+//            } catch (InterruptedException ignored) {}
+//        }
+//    }
+//
+//    if (xmlResponse != null) {
+//        System.out.println("API Response:\n" + xmlResponse); // Log response before parsing
+//    }
+//
+//    try {
+//        // Create XPath instance
+//        XPathFactory xPathFactory = XPathFactory.newInstance();
+//        this.xpath = xPathFactory.newXPath();
+//
+//        // Convert XML string to a Document object
+//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//        DocumentBuilder builder = factory.newDocumentBuilder();
+//        this.doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
+//    } catch (ParserConfigurationException | SAXException | IOException e) {
+//        e.printStackTrace();
+//    }
+//}
 
     public String getField(String selector){
         return getField(selector, doc);

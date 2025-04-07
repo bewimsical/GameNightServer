@@ -1,5 +1,6 @@
 package edu.farmingdale.getgame.service;
 
+import edu.farmingdale.getgame.dto.UserDto;
 import edu.farmingdale.getgame.model.Game;
 import edu.farmingdale.getgame.model.User;
 import edu.farmingdale.getgame.repository.GameRepository;
@@ -52,5 +53,15 @@ public class UserService {
     }
     public void deleteUser(User user){
         userRepository.delete(user);
+    }
+
+    public User createUser(UserDto userDto){
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setfName(userDto.getfName());
+        user.setlName(userDto.getlName());
+        user.setProfilePicUrl(userDto.getProfilePicUrl());
+        return saveUser(user);
     }
 }
