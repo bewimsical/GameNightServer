@@ -17,7 +17,7 @@ This project is a backend service built with Spring Boot that interacts with the
 - **Microsoft SQL Server JDBC Driver** - For connecting to SQL Server
 - **Jackson Dataformat XML** - For XML data processing
 - **Maven** - Build tool
-- **Databse** - Azure
+- **Database** - Azure
 
 ## Local Development
 - **Install Docker**
