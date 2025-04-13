@@ -31,6 +31,11 @@ This project is a backend service built with Spring Boot that interacts with the
     - Copy the example environment file:  `cp .env.example .env.properties`
     - Edit `.env.properties` as needed to configure your settings.
 
+## Azure Development
+- **Set Up Environment Variables**
+  - Copy the example environment file:  `cp .env.example .env.properties`
+  - Edit `.env.properties` as needed to configure your settings.
+
 ## Contributors
 - Kathleen Wims [GitHub](https://github.com/bewimsical)  
 - Darianne Ramos [GitHub](https://github.com/darianne123)  
