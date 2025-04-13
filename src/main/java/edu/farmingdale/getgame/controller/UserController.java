@@ -5,10 +5,9 @@ import edu.farmingdale.getgame.model.User;
 import edu.farmingdale.getgame.service.GameService;
 import edu.farmingdale.getgame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -26,5 +25,31 @@ public class UserController {
         System.out.println(userDto.getUsername());
         return userService.createUser(userDto);
     }
+    @PostMapping("/addgame")
+    public void addGame(@RequestParam Long user, @RequestParam int game){
+
+        userService.addGame(user,game);
+    }
+    @DeleteMapping("deletegame")
+    public void deleteGame(@RequestParam Long user, @RequestParam int game){
+        userService.removeGame(user, game);
+    }
+    @PostMapping("/addfriend")
+    public void addFriend(@RequestParam Long user, @RequestParam Long friend){
+
+        userService.addFriend(user,friend);
+    }
+    @DeleteMapping("deletefriend")
+    public void deleteFriend(@RequestParam Long user, @RequestParam Long friend){
+        userService.removeFriend(user, friend);
+    }
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable String id){
+        long userId = Long.parseLong(id);
+        Optional<User> user = userService.getUser(userId);
+        return user.get();
+    }
+
 
 }
