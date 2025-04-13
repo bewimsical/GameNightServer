@@ -1,6 +1,7 @@
 package edu.farmingdale.getgame.controller;
 
 import edu.farmingdale.getgame.dto.UserDto;
+import edu.farmingdale.getgame.exception.ResourceNotFoundException;
 import edu.farmingdale.getgame.model.User;
 import edu.farmingdale.getgame.service.GameService;
 import edu.farmingdale.getgame.service.UserService;
@@ -48,7 +49,7 @@ public class UserController {
     public User getUser(@PathVariable String id){
         long userId = Long.parseLong(id);
         Optional<User> user = userService.getUser(userId);
-        return user.get();
+        return user.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
 

@@ -1,9 +1,16 @@
 package edu.farmingdale.getgame.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "userId"
+)
 @Entity
 @Table(name = "users")
 public class User{
@@ -31,6 +38,9 @@ public class User{
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private Set<User> friends;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserParty> userParties = new HashSet<>();
 
     public User() {
     }
@@ -107,6 +117,14 @@ public class User{
         this.friends = friends;
     }
 
+    public Set<UserParty> getUserParties() {
+        return userParties;
+    }
+
+    public void setUserParties(Set<UserParty> userParties) {
+        this.userParties = userParties;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -117,6 +135,8 @@ public class User{
                 ", email='" + email + '\'' +
                 ", profilePicUrl='" + profilePicUrl + '\'' +
                 ", games=" + games +
+                ", friends=" + friends +
+                ", userParties=" + userParties +
                 '}';
     }
 }
