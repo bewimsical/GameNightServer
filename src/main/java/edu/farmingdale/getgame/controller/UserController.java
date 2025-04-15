@@ -31,10 +31,10 @@ public class UserController {
         return userService.createUser(userDto);
     }
     @GetMapping("/{id}")
-    public User getUser(@PathVariable String id){
+    public UserDto getUser(@PathVariable String id){
         long userId = Long.parseLong(id);
-        Optional<User> user = userService.getUser(userId);
-        return user.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        User user = userService.getUser(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl());
     }
     @GetMapping("/{id}/games")
     public Set<Game> getGames(@PathVariable Long id){

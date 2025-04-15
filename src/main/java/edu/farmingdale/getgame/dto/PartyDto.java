@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 
 public class PartyDto {
+    private Long id;
     @JsonProperty("party_name")
     private String partyName;
     @JsonProperty("party_date")
@@ -17,6 +18,13 @@ public class PartyDto {
     }
 
     public PartyDto(String partyName, LocalDateTime partyDate, String location) {
+        this.partyName = partyName;
+        this.partyDate = partyDate;
+        this.location = location;
+    }
+
+    public PartyDto(Long id, String partyName, LocalDateTime partyDate, String location) {
+        this.id = id;
         this.partyName = partyName;
         this.partyDate = partyDate;
         this.location = location;
