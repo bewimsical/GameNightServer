@@ -25,6 +25,9 @@ public class GameService {
     public Optional<Game> getGame(Integer id){
         return gameRepository.findById(id);
     }
+    public Optional<Game> getGameByBggId(Integer id){
+        return gameRepository.findGameByBggId(id);
+    }
     public Game saveGame(Game game){
         return gameRepository.save(game);
     }

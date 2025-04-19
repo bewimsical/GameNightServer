@@ -22,12 +22,13 @@ public class User{
     String lName;
     String email;
     String profilePicUrl;
+    String userPassword;
 
     @ManyToMany
     @JoinTable(
             name = "user_game",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "object_id")
+            inverseJoinColumns = @JoinColumn(name = "game_id")
     )
     private Set<Game> games;
 
@@ -45,13 +46,14 @@ public class User{
     public User() {
     }
 
-    public User(Long userID, String username, String fName, String lName, String email, String profilePicUrl) {
+    public User(Long userID, String username, String fName, String lName, String email, String profilePicUrl, String userPassword) {
         this.userId = userID;
         this.username = username;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.profilePicUrl = profilePicUrl;
+        this.userPassword = userPassword;
     }
 
     public Long getUserId() {
@@ -138,5 +140,13 @@ public class User{
                 ", friends=" + friends +
                 ", userParties=" + userParties +
                 '}';
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 }

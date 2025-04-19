@@ -53,6 +53,7 @@ public class UserService {
         user.setfName(userDto.getfName());
         user.setlName(userDto.getlName());
         user.setProfilePicUrl(userDto.getProfilePicUrl());
+        user.setUserPassword(userDto.getUserPassword());
         return saveUser(user);
     }
 
