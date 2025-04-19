@@ -54,6 +54,20 @@ public class User{
         this.profilePicUrl = profilePicUrl;
     }
 
+
+    //efrat stuff
+    private String password;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    //end of efrat stuff
+
     public Long getUserId() {
         return userId;
     }

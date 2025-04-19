@@ -53,8 +53,30 @@ public class UserService {
         user.setfName(userDto.getfName());
         user.setlName(userDto.getlName());
         user.setProfilePicUrl(userDto.getProfilePicUrl());
+        user.setPassword(userDto.getPassword()); //create user pass
         return saveUser(user);
     }
+
+    /**
+    public Optional<User> loginUser(String email, String password) {
+        return userRepository.findAll().stream()
+                .filter(u -> u.getEmail().equals(email) && u.getPassword().equals(password))
+                .findFirst();
+    }
+     */
+
+    public Optional<User> loginUser(String email, String password) {
+        List<User> users = userRepository.findAll();
+
+        for (User u : users) {
+            System.out.println("EMAIL: " + u.getEmail() + ", PASSWORD: " + u.getPassword());
+        }
+
+        return users.stream()
+                .filter(u -> u.getEmail().equals(email) && u.getPassword().equals(password))
+                .findFirst();
+    }
+
 
     public Set<Game> getUserGames(Long id){
         Optional<User> opUser = getUser(id);
