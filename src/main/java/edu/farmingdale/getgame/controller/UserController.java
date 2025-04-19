@@ -26,9 +26,10 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody UserDto userDto){
+    public UserDto createUser(@RequestBody UserDto userDto){
         System.out.println(userDto.getUsername());
-        return userService.createUser(userDto);
+        User user = userService.createUser(userDto);
+        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl());
     }
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable String id){
