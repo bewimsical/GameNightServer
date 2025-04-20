@@ -23,15 +23,15 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public Game getGame(@PathVariable String id){
-        int gameId = Integer.parseInt(id); //TODO validate the id to make sure it is a number
-        Optional<Game> game = gameService.getGame(gameId);
+    public Game getGame(@PathVariable int id){
+        int gameId = id; //TODO validate the id to make sure it is a number
+        Optional<Game> game = gameService.getGameByBggId(gameId);
         if(game.isEmpty()){
-            APIClient client = new APIClient("boardgame", id);
+            APIClient client = new APIClient("boardgame", String.valueOf(id));
             String name = client.getField("//name[@primary='true']");//TODO add backup that doesnt use primary
-            String minPlayers = client.getField("//minplayers");
-            String maxPlayers = client.getField("//maxplayers");
-            String playTime = client.getField("//playingtime");
+            int minPlayers = Integer.parseInt(client.getField("//minplayers"));
+            int maxPlayers = Integer.parseInt(client.getField("//maxplayers"));
+            int playTime = Integer.parseInt(client.getField("//playingtime"));
             String imgUrl = client.getField("//thumbnail");
             String category = client.getField("//boardgamesubdomain");
             game = Optional.of(new Game(gameId, name, minPlayers, maxPlayers, playTime, imgUrl, category));

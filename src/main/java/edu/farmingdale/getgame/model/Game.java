@@ -10,13 +10,15 @@ import jakarta.persistence.Table;
 public class Game {
 
     @Id
-    private int objectId;
+    private int gameId;
 
     @Column(nullable = false)
-    private String name;
-    private String minPlayers;
-    private String maxPlayers;
-    private String playTime;
+    private int bggId;
+    @Column(nullable = false)
+    private String game_name;
+    private int minPlayers;
+    private int maxPlayers;
+    private int playTime;
     private String imgUrl;
     private String category;
 
@@ -24,10 +26,19 @@ public class Game {
     public Game() {
     }
 
-    // Parameterized Constructor
-    public Game(int objectId, String name, String minPlayers, String maxPlayers, String playTime, String imgUrl, String category) {
-        this.objectId = objectId;
-        this.name = name;
+    public Game(int gameId, int bggId, String game_name, int minPlayers, int maxPlayers, int playTime, String imgUrl, String category) {
+        this.gameId = gameId;
+        this.bggId = bggId;
+        this.game_name = game_name;
+        this.minPlayers = minPlayers;
+        this.maxPlayers = maxPlayers;
+        this.playTime = playTime;
+        this.imgUrl = imgUrl;
+        this.category = category;
+    }
+    public Game(int bggId, String game_name, int minPlayers, int maxPlayers, int playTime, String imgUrl, String category) {
+        this.bggId = bggId;
+        this.game_name = game_name;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.playTime = playTime;
@@ -35,46 +46,50 @@ public class Game {
         this.category = category;
     }
 
+
+    // Parameterized Constructor
+
+
     // Getters and Setters
-    public int getObjectId() {
-        return objectId;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setObjectId(int objectId) {
-        this.objectId = objectId;
+    public void setGameId(int objectId) {
+        this.gameId = objectId;
     }
 
-    public String getName() {
-        return name;
+    public String getGame_name() {
+        return game_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGame_name(String name) {
+        this.game_name = name;
     }
 
-    public String getMinPlayers() {
+    public int getMinPlayers() {
         return minPlayers;
     }
 
-    public void setMinPlayers(String minPlayers) {
+    public void setMinPlayers(int minPlayers) {
         this.minPlayers = minPlayers;
     }
 
-    public String getMaxPlayers() {
+    public int getMaxPlayers() {
         return maxPlayers;
     }
 
-    public void setMaxPlayers(String maxPlayers) {
+    public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
 
-    public String getPlayTime() {
+    public int getPlayTime() {
         return playTime;
     }
-
-    public void setPlayTime(String playTime) {
+    public void setPlayTime(int playTime) {
         this.playTime = playTime;
     }
+
 
     public String getImgUrl() {
         return imgUrl;
@@ -96,8 +111,8 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "objectId=" + objectId +
-                ", name='" + name + '\'' +
+                "objectId=" + gameId +
+                ", name='" + game_name + '\'' +
                 ", minPlayers='" + minPlayers + '\'' +
                 ", maxPlayers='" + maxPlayers + '\'' +
                 ", playTime='" + playTime + '\'' +
@@ -105,4 +120,13 @@ public class Game {
                 ", category='" + category + '\'' +
                 '}';
     }
+
+    public int getBggId() {
+        return bggId;
+    }
+
+    public void setBggId(int bggId) {
+        this.bggId = bggId;
+    }
+
 }

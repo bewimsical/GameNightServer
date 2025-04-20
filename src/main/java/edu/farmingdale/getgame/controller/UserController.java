@@ -29,14 +29,15 @@ public class UserController {
     public UserDto createUser(@RequestBody UserDto userDto){
         System.out.println(userDto.getUsername());
         User user = userService.createUser(userDto);
-        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl());
+        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword());
     }
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable String id){
         long userId = Long.parseLong(id);
         User user = userService.getUser(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl());
+        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword());
     }
+
     @GetMapping("/{id}/games")
     public Set<Game> getGames(@PathVariable Long id){
         return userService.getUserGames(id);
