@@ -61,12 +61,9 @@ public class PartyService {
     }
 
     public List<User> getPartyUsers(Long partyId){
-        //List<UserParty> userParties = userPartyRepository.findByParty_PartyId(partyId);
-
         return userPartyRepository.findByParty_PartyId(partyId).stream()
                 .map(UserParty::getUser)
                 .collect(Collectors.toList());
-        //new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword())
     }
 
     public List<User> getPartyHosts(Long partyId){
