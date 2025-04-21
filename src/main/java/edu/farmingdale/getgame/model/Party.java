@@ -27,6 +27,7 @@ public class Party {
     private String location;
 
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<UserParty> userParties = new HashSet<>();
 
     public Party() {
