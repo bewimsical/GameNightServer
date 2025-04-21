@@ -1,6 +1,7 @@
 package edu.farmingdale.getgame.service;
 
 import edu.farmingdale.getgame.dto.PartyDto;
+import edu.farmingdale.getgame.dto.UserDto;
 import edu.farmingdale.getgame.exception.ResourceNotFoundException;
 import edu.farmingdale.getgame.model.*;
 import edu.farmingdale.getgame.repository.PartyRepository;
@@ -60,9 +61,12 @@ public class PartyService {
     }
 
     public List<User> getPartyUsers(Long partyId){
+        //List<UserParty> userParties = userPartyRepository.findByParty_PartyId(partyId);
+
         return userPartyRepository.findByParty_PartyId(partyId).stream()
                 .map(UserParty::getUser)
                 .collect(Collectors.toList());
+        //new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword())
     }
 
     public List<User> getPartyHosts(Long partyId){

@@ -1,5 +1,6 @@
 package edu.farmingdale.getgame.controller;
 
+import edu.farmingdale.getgame.dto.PartyDto;
 import edu.farmingdale.getgame.dto.UserDto;
 import edu.farmingdale.getgame.exception.ResourceNotFoundException;
 import edu.farmingdale.getgame.model.Game;
@@ -10,9 +11,7 @@ import edu.farmingdale.getgame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -43,16 +42,31 @@ public class UserController {
         return userService.getUserGames(id);
     }
     @GetMapping("/{id}/friends")
-    public Set<User> getFriends(@PathVariable Long id){
-        return userService.getUserFriends(id);
+    public Set<UserDto> getFriends(@PathVariable Long id){
+        Set<User> friends = userService.getUserFriends(id);
+        Set<UserDto> friendsDtos = new HashSet<>();
+        for (User user : friends){
+            friendsDtos.add(new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword()));
+        }
+        return friendsDtos;
     }
     @GetMapping("/{id}/parties")
-    public List<Party> getParties(@PathVariable Long id){
-        return userService.getUserParties(id);
+    public List<PartyDto> getParties(@PathVariable Long id){
+        List<Party> parties =  userService.getUserParties(id);
+        List<PartyDto> partyDtos = new ArrayList<>();
+        for(Party p:parties){
+            partyDtos.add(new PartyDto(p.getPartyId(), p.getPartyName(),p.getPartyDate(),p.getLocation()));
+        }
+        return partyDtos;
     }
     @GetMapping("/{id}/hosted")
-    public List<Party> getHostedParties(@PathVariable Long id){
-        return userService.getHostedParties(id);
+    public List<PartyDto> getHostedParties(@PathVariable Long id){
+        List<Party> parties =  userService.getHostedParties(id);
+        List<PartyDto> partyDtos = new ArrayList<>();
+        for(Party p:parties){
+            partyDtos.add(new PartyDto(p.getPartyId(), p.getPartyName(),p.getPartyDate(),p.getLocation()));
+        }
+        return partyDtos;
     }
     @PostMapping("/addgame")
     public void addGame(@RequestParam Long user, @RequestParam int game){
