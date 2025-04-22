@@ -20,11 +20,9 @@ public class Game {
     private String imgUrl;
     private String category;
 
-    // Default Constructor
     public Game() {
     }
 
-    // Parameterized Constructor
     public Game(int objectId, String name, String minPlayers, String maxPlayers, String playTime, String imgUrl, String category) {
         this.objectId = objectId;
         this.name = name;
@@ -35,7 +33,6 @@ public class Game {
         this.category = category;
     }
 
-    // Getters and Setters
     public int getObjectId() {
         return objectId;
     }
@@ -92,7 +89,6 @@ public class Game {
         this.category = category;
     }
 
-    // toString Method
     @Override
     public String toString() {
         return "Game{" +
