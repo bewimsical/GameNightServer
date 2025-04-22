@@ -1,7 +1,7 @@
 package edu.farmingdale.getgame.dto;
 
 public class UserDto {
-    private Long id;
+    private Long userId;
     private String username; //should we make this unique?
     private String fName;
     private String lName;
@@ -10,9 +10,10 @@ public class UserDto {
     private String userPassword;
 
     public UserDto() {
+
     }
     public UserDto(Long id, String username, String fName, String lName, String email, String profilePicUrl, String password) {
-        this.id = id;
+        this.userId = id;
         this.username = username;
         this.fName = fName;
         this.lName = lName;
@@ -32,11 +33,11 @@ public class UserDto {
 
 
     public Long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getUsername() {
@@ -85,5 +86,18 @@ public class UserDto {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", email='" + email + '\'' +
+                ", profilePicUrl='" + profilePicUrl + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
 }
