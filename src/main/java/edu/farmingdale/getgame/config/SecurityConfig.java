@@ -10,7 +10,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        System.out.println("✅ PasswordEncoder bean created");
+        System.out.println("PasswordEncoder bean created!");
         return new BCryptPasswordEncoder();
     }
 
