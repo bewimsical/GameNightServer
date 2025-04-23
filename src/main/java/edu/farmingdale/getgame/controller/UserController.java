@@ -1,5 +1,6 @@
 package edu.farmingdale.getgame.controller;
 
+import edu.farmingdale.getgame.dto.LoginRequest;
 import edu.farmingdale.getgame.dto.PartyDto;
 import edu.farmingdale.getgame.dto.UserDto;
 import edu.farmingdale.getgame.exception.ResourceNotFoundException;
@@ -9,6 +10,7 @@ import edu.farmingdale.getgame.model.User;
 import edu.farmingdale.getgame.service.GameService;
 import edu.farmingdale.getgame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -23,6 +25,7 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
+
 
     @PostMapping("/create")
     public UserDto createUser(@RequestBody UserDto userDto){
@@ -89,6 +92,31 @@ public class UserController {
     public void deleteFriend(@RequestParam Long user, @RequestParam Long friend){
         userService.removeFriend(user, friend);
     }
+
+
+
+
+    @PostMapping("/login")
+    public UserDto login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Optional<User> userOpt = userService.getUserByEmail(email);
+        if (userOpt.isEmpty()) {
+            throw new ResourceNotFoundException("Invalid credentials");
+        }
+
+        User user = userOpt.get();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if (!passwordEncoder.matches(password, user.getUserPassword())) {
+            throw new ResourceNotFoundException("Invalid credentials");
+        }
+
+        return new UserDto(user.getUserId(), user.getUsername(), user.getfName(),
+                user.getlName(), user.getEmail(), user.getProfilePicUrl(), null);
+    }
+
 
 
 

@@ -12,6 +12,8 @@ import edu.farmingdale.getgame.repository.PartyRepository;
 import edu.farmingdale.getgame.repository.UserPartyRepository;
 import edu.farmingdale.getgame.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,15 +48,32 @@ public class UserService {
     public void deleteUser(User user){
         userRepository.delete(user);
     }
-    public User createUser(UserDto userDto){
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User createUser(UserDto userDto) {
+        Optional<User> existingUser = userRepository.findByEmail(userDto.getEmail());
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Email already registered.");
+        }
+
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setfName(userDto.getfName());
         user.setlName(userDto.getlName());
         user.setProfilePicUrl(userDto.getProfilePicUrl());
-        user.setUserPassword(userDto.getUserPassword());
+        //password hasher
+        String hashedPassword = passwordEncoder.encode(userDto.getUserPassword());
+        user.setUserPassword(hashedPassword);
+
         return saveUser(user);
+    }
+
+
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public Set<Game> getUserGames(Long id){
