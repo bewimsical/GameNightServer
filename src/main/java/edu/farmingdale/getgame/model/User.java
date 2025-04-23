@@ -20,7 +20,8 @@ public class User{
     String username; //should we make this unique?
     String fName;
     String lName;
-    String email;
+    @Column(unique = true)
+    private String email;
     String profilePicUrl;
     String userPassword;
 
