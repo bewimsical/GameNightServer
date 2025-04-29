@@ -1,8 +1,10 @@
 package edu.farmingdale.getgame.controller;
 
+import edu.farmingdale.getgame.dto.GameCountDto;
 import edu.farmingdale.getgame.dto.PartyDto;
 import edu.farmingdale.getgame.dto.UserDto;
 import edu.farmingdale.getgame.exception.ResourceNotFoundException;
+import edu.farmingdale.getgame.model.Game;
 import edu.farmingdale.getgame.model.Party;
 import edu.farmingdale.getgame.model.User;
 import edu.farmingdale.getgame.service.PartyService;
@@ -64,5 +66,17 @@ public class PartyController {
     @DeleteMapping("/delete/user")
     public void deleteUser(@RequestParam Long user, @RequestParam Long party){
         partyService.deleteUser(user, party);
+    }
+    @PostMapping("{partyId}/games/{gameId}")
+    public void selectGame(@PathVariable Long partyId, @PathVariable int gameId){
+        partyService.addGameToParty(gameId, partyId);
+    }
+    @DeleteMapping("{partyId}/games/{gameId}")
+    public void decrementGame(@PathVariable Long partyId, @PathVariable int gameId){
+        partyService.removeGameFromParty(gameId, partyId);
+    }
+    @GetMapping("{partyId}/games")
+    public List<GameCountDto> getSelectedGames(@PathVariable Long partyId){
+        return partyService.getGameCount(partyId);
     }
 }
