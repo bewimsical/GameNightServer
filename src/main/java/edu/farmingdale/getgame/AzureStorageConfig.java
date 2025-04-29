@@ -1,34 +1,34 @@
 package edu.farmingdale.getgame;
 
-
-import lombok.Getter;
-import org.springframework.context.annotation.Configuration;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.BlobServiceClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 public class AzureStorageConfig {
+    
     @Value("${azure.storage.connection.string}")
     private String connectionString;
     
-    @Getter
     @Value("${azure.storage.container.name}")
     private String containerName;
     
-    @Getter
-    @Value("${azure.mysql.connection.string}")
-    private String mysqlConnectionString;
+    @Bean
+    public BlobServiceClient blobServiceClient() {
+        return new BlobServiceClientBuilder()
+                .connectionString(connectionString)
+                .buildClient();
+    }
     
-    @Getter
-    @Value("${azure.mysql.username}")
-    private String mysqlUsername;
-    
-    @Getter
-    @Value("${azure.mysql.password}")
-    private String mysqlPassword;
-
-    // Getters
-    public String getStorageConnectionString() { return connectionString; }
-
+    @Bean
+    public BlobContainerClient blobContainerClient(BlobServiceClient blobServiceClient) {
+        BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+        if (!containerClient.exists()) {
+            containerClient.create();
+        }
+        return containerClient;
+    }
 }
