@@ -19,15 +19,16 @@ public class GameParty {
     @JoinColumn(name="party_id")
     private Party party;
 
-    @Column(nullable = false)
-    private int count = 1;
+    @Id
+    private Long userId;
 
     public GameParty() {
     }
 
-    public GameParty(Game game, Party party) {
-        this.game = game;
+    public GameParty(Long userId, Party party, Game game) {
+        this.userId = userId;
         this.party = party;
+        this.game = game;
     }
 
     public Game getGame() {
@@ -46,23 +47,12 @@ public class GameParty {
         this.party = party;
     }
 
-    public int getCount() {
-        return count;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        GameParty gameParty = (GameParty) o;
-        return Objects.equals(game, gameParty.game) && Objects.equals(party, gameParty.party);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(game, party);
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

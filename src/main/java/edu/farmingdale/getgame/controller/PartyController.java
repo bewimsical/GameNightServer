@@ -67,16 +67,21 @@ public class PartyController {
     public void deleteUser(@RequestParam Long user, @RequestParam Long party){
         partyService.deleteUser(user, party);
     }
-    @PostMapping("{partyId}/games/{gameId}")
-    public void selectGame(@PathVariable Long partyId, @PathVariable int gameId){
-        partyService.addGameToParty(gameId, partyId);
+
+    @PostMapping("{partyId}/games/{gameId}/{userId}")
+    public void selectGame(@PathVariable Long partyId, @PathVariable int gameId, @PathVariable Long userId){
+        partyService.addGameToParty(gameId, partyId, userId);
     }
-    @DeleteMapping("{partyId}/games/{gameId}")
-    public void decrementGame(@PathVariable Long partyId, @PathVariable int gameId){
-        partyService.removeGameFromParty(gameId, partyId);
+    @DeleteMapping("{partyId}/games/{gameId}/{userId}")
+    public void decrementGame(@PathVariable Long partyId, @PathVariable int gameId, @PathVariable Long userId){
+        partyService.removeGameFromParty(gameId, partyId,userId);
     }
     @GetMapping("{partyId}/games")
     public List<GameCountDto> getSelectedGames(@PathVariable Long partyId){
         return partyService.getGameCount(partyId);
+    }
+    @GetMapping("{partyId}/games/selected/{userId}")
+    public List<Game> getUserSelectedGames(@PathVariable Long partyId, @PathVariable Long userId){
+        return partyService.getUserSelectedGames(partyId,userId);
     }
 }

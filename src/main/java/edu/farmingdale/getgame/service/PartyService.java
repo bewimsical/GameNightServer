@@ -116,43 +116,34 @@ public class PartyService {
         for (Object[] row : results) {
             Integer gameId = (Integer) row[0];
             Game game = gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game not found with id: " + gameId));
-            Integer count = (Integer) row[1];
-            GameCountDto gameDto = new GameCountDto(game.getGameId(), game.getGame_name(),game.getMinPlayers(), game.getMaxPlayers(), game.getPlayTime(), game.getImgUrl(), count);
+            Long count = (Long) row[1];
+
+            GameCountDto gameDto = new GameCountDto(game.getGameId(), game.getGame_name(),game.getMinPlayers(), game.getMaxPlayers(), game.getPlayTime(), game.getImgUrl(), count.intValue());
             gameCountList.add(gameDto);
         }
 
         return gameCountList;
     }
 
-    public void addGameToParty(int game, Long party) {
-        GamePartyId id = new GamePartyId(game, party);
-        GameParty gameParty = gamePartyRepository.findById(id).orElse(null);
+    public void addGameToParty(int game, Long party, Long user) {
+        GamePartyId id = new GamePartyId(game, party, user);
+        Game gameObj = gameRepository.findById(game).orElseThrow(() -> new ResourceNotFoundException("Game not found with id: " + game));
+        Party partyObj = partyRepository.findById(party).orElseThrow(() -> new ResourceNotFoundException("Game not found with id: " + party));
 
-        if (gameParty != null) {
-            gameParty.setCount(gameParty.getCount() + 1);
-        } else {
-            Game gameObj = gameRepository.findById(game).orElseThrow(() -> new ResourceNotFoundException("Game not found with id: " + game));
-            Party partyObj = partyRepository.findById(party).orElseThrow(() -> new ResourceNotFoundException("Game not found with id: " + party));
-
-            gameParty = new GameParty(gameObj, partyObj);
-        }
+        GameParty gameParty = new GameParty(user,partyObj,gameObj);
         gamePartyRepository.save(gameParty);
     }
 
-    public void removeGameFromParty(int game, Long party) {
-        GamePartyId id = new GamePartyId(game, party);
+    public void removeGameFromParty(int game, Long party, Long user) {
+        GamePartyId id = new GamePartyId(game, party, user);
         GameParty gameParty = gamePartyRepository.findById(id).orElse(null);
-
-        if (gameParty != null) {
-            int updatedCount = gameParty.getCount() - 1;
-            if (updatedCount <= 0) {
-                gamePartyRepository.delete(gameParty);
-            } else {
-                gameParty.setCount(updatedCount);
-                gamePartyRepository.save(gameParty);
-            }
-        }
+        gamePartyRepository.deleteById(id);
     }
+
+    public List<Game> getUserSelectedGames(Long partyId, Long userId){
+        return gamePartyRepository.findGamesSelectedByUserForParty(partyId,userId);
+    }
+
 
 
 
