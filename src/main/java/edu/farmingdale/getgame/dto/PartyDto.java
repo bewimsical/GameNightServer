@@ -1,21 +1,20 @@
 package edu.farmingdale.getgame.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 public class PartyDto {
-    public Long getId() {
-        return id;
+    public Long getPartyId() {
+        return partyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPartyId(Long partyId) {
+        this.partyId = partyId;
     }
 
-    private Long id;
+    private Long partyId;
     @JsonProperty("party_name")
     private String partyName;
     @JsonProperty("party_date")
@@ -32,7 +31,7 @@ public class PartyDto {
     }
 
     public PartyDto(Long id, String partyName, LocalDateTime partyDate, String location) {
-        this.id = id;
+        this.partyId = id;
         this.partyName = partyName;
         this.partyDate = partyDate;
         this.location = location;

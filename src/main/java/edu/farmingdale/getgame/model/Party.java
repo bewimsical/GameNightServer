@@ -1,9 +1,6 @@
 package edu.farmingdale.getgame.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +19,9 @@ public class Party {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long partyId;
+    @JsonProperty("party_name")
     private String partyName;
+    @JsonProperty("party_date")
     private LocalDateTime partyDate;
     private String location;
 
