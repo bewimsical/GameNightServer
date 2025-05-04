@@ -151,4 +151,8 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<User> findUserByUsername(String username){
+        return userRepository.searchByUsername(username);
+    }
+
 }

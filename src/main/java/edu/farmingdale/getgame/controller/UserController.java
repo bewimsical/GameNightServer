@@ -92,7 +92,16 @@ public class UserController {
     public void deleteFriend(@RequestParam Long user, @RequestParam Long friend){
         userService.removeFriend(user, friend);
     }
+    @GetMapping("/search/{username}")
+    public List<UserDto> searchUserByUsername(@PathVariable String username){
+        List<User> results = userService.findUserByUsername(username);
+        List<UserDto> users = new ArrayList<>();
 
+        for (User user : results){
+            users.add(new UserDto(user.getUserId(), user.getUsername(), user.getfName(), user.getlName(), user.getEmail(), user.getProfilePicUrl(), user.getUserPassword()));
+        }
+        return users;
+    }
 
 
 
