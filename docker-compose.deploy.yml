@@ -1,0 +1,10 @@
+services:
+  gamenight-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gamenight-server
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.properties
