@@ -85,8 +85,9 @@ public class UserController {
         userService.removeGame(user, game);
     }
     @PostMapping("/addfriend")
-    public void addFriend(@RequestParam Long user, @RequestParam Long friend){
-        userService.addFriend(user,friend);
+    public UserDto addFriend(@RequestParam Long user, @RequestParam Long friend){
+        User addedFriend = userService.addFriend(user,friend);
+        return new UserDto(addedFriend.getUserId(), addedFriend.getUsername(), addedFriend.getfName(), addedFriend.getlName(), addedFriend.getEmail(), addedFriend.getProfilePicUrl(), addedFriend.getUserPassword());
     }
     @DeleteMapping("deletefriend")
     public void deleteFriend(@RequestParam Long user, @RequestParam Long friend){

@@ -113,7 +113,7 @@ public class UserService {
 
         return user.getFriends();
     }
-    public void addFriend(Long userId, Long friendId){
+    public User addFriend(Long userId, Long friendId){
 
         Optional<User> opUser = getUser(userId);
         Optional<User> opFriend = userRepository.findById(friendId);
@@ -124,6 +124,7 @@ public class UserService {
         user.getFriends().add(friend);
 
         saveUser(user);
+        return  friend;
     }
     public void removeFriend(Long userId, Long friendId){
         Optional<User> opUser = getUser(userId);
