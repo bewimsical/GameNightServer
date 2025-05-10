@@ -24,17 +24,19 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
+
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
     private final UserPartyRepository userPartyRepository;
-    private final PartyRepository partyRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, GameRepository gameRepository, UserPartyRepository userPartyRepository, PartyRepository partyRepository){
+    public UserService(UserRepository userRepository, GameRepository gameRepository,
+                       UserPartyRepository userPartyRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
         this.userPartyRepository = userPartyRepository;
-        this.partyRepository = partyRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     public List<User> getAllUsers(){
         return userRepository.findAll();
@@ -48,8 +50,6 @@ public class UserService {
     public void deleteUser(User user){
         userRepository.delete(user);
     }
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public User createUser(UserDto userDto) {
         Optional<User> existingUser = userRepository.findByEmail(userDto.getEmail());
